@@ -1,0 +1,466 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 7n5n3ctubxxg9
+info:
+  title: get job data
+  version: '1.0'
+  summary: Get filtered jobs and sorted jobs
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/jobs?jobtitle={jobTitle}&salary[{condition}]={salary}&gender={gender}':
+    parameters:
+      - schema:
+          type: string
+        name: jobTitle
+        in: path
+      - schema:
+          type: string
+        name: gender
+        in: path
+      - schema:
+          type: string
+        name: salary
+        in: path
+      - schema:
+          type: string
+        name: condition
+        in: path
+        description: 'valid conditions: gte, lte, eq'
+    get:
+      summary: 'Get jobs by job title, salary and gender'
+      tags: []
+      responses:
+        '200':
+          description: Job found
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signing Bonus: '0'
+                        annual Bonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+                properties:
+                  jobs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: string
+                        employer:
+                          type: string
+                        location:
+                          type: string
+                        jobTitle:
+                          type: string
+                        yearsAtEmployer:
+                          type: string
+                        yearsOfExperience:
+                          type: string
+                        salary:
+                          type: string
+                        signingBonus:
+                          type: string
+                        annualBonus:
+                          type: string
+                        annualStockBonus:
+                          type: string
+                        gender:
+                          type: string
+                        additionalComments:
+                          type: string
+              examples:
+                Get jobs with the job title 'Software Developer'.:
+                  value:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signingBonus: '0'
+                        annualBonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+                'Get jobs with empty params. In case of all filters are empty, all jobs will be retrieved.':
+                  value:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signingBonus: '0'
+                        annualBonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+                Empty when there is not matched job with filtered conditions.:
+                  value:
+                    jobs: []
+      operationId: get-filtered-jobs
+      description: 'Retrieve the job data filtered by the job title, salary and gender. If all params are empty, data will not be filtered and all job data will be shown as default.'
+      parameters:
+        - schema:
+            type: string
+          in: header
+  '/jobs?fields={field1},{field2},{field3}':
+    get:
+      summary: Get jobs with target fields only
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: string
+                        employer:
+                          type: string
+                        location:
+                          type: string
+                        jobTitle:
+                          type: string
+                        yearsAtEmployer:
+                          type: string
+                        yearsOfExperience:
+                          type: string
+                        salary:
+                          type: string
+                        signingBonus:
+                          type: string
+                        annualBonus:
+                          type: string
+                        annualStockBonus:
+                          type: string
+                        gender:
+                          type: string
+                        additionalComments:
+                          type: string
+                x-examples:
+                  Example 1:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signingBonus: '0'
+                        annualBonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+              examples:
+                'Filtered with jobTitle, gender and salary':
+                  value:
+                    jobs:
+                      - jobTitle: Software Developer
+                        salary: '122000'
+                        gender: Male
+                      - jobTitle: Software Developer
+                        salary: '90500'
+                        gender: Male
+                'In case of no target fields, all job data will be retrieved.':
+                  value:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signingBonus: '0'
+                        annualBonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+        '':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '':
+                    type: string
+      operationId: get-reference-get-job-data.yaml-paths
+      description: 'Retrieve the jobs filtered by the sparse field(s)/attribute(s). If all params are empty, data will not be filtered and all job data will be shown as default.'
+    parameters:
+      - schema:
+          type: string
+        name: field1
+        in: path
+        description: target field name
+      - schema:
+          type: string
+        name: field2
+        in: path
+        description: target field name
+      - schema:
+          type: string
+        name: field3
+        in: path
+        description: target field name
+  '/jobs?sort={field1}:{order1},{field2}:{order2}':
+    get:
+      summary: Get jobs sorted by target field(s) and order
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: string
+                        employer:
+                          type: string
+                        location:
+                          type: string
+                        jobTitle:
+                          type: string
+                        yearsAtEmployer:
+                          type: string
+                        yearsOfExperience:
+                          type: string
+                        salary:
+                          type: string
+                        signingBonus:
+                          type: string
+                        annualBonus:
+                          type: string
+                        annualStockBonus:
+                          type: string
+                        gender:
+                          type: string
+                        additionalComments:
+                          type: string
+                x-examples:
+                  Example 1:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signingBonus: '0'
+                        annualBonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+              examples:
+                Order by salary in descending order:
+                  value:
+                    jobs:
+                      - timestamp: '3/21/2016 12:54:49'
+                        employer: ''
+                        location: 'Raleigh, NC'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: ''
+                        yearsOfExperience: '18'
+                        salary: '122000'
+                        signingBonus: ''
+                        annualBonus: ''
+                        annualStockBonus: ''
+                        gender: Male
+                        additionalComments: ''
+                      - timestamp: '3/21/2016 13:01:19'
+                        employer: ''
+                        location: 'Copenhagen, Denmark'
+                        jobTitle: Software Developer
+                        yearsAtEmployer: '1'
+                        yearsOfExperience: '2'
+                        salary: '90500'
+                        signingBonus: '0'
+                        annualBonus: '0'
+                        annualStockBonus: '0'
+                        gender: Male
+                        additionalComments: Finance
+      operationId: get-job_data?sort=job_title&sort_type=DESC
+      description: |-
+        Get sorted job data. Sort by one or more fields. 
+
+        The valid value of order are "asc" and "desc".
+        If the order value is invalid or empty, default order will be "asc" for target field(s).
+    parameters:
+      - schema:
+          type: string
+        name: field1
+        in: path
+        description: Target field to filter as first priority
+      - schema:
+          type: string
+        name: order1
+        in: path
+        description: asc or desc
+      - schema:
+          type: string
+        name: field2
+        in: path
+        description: Target field to filter as second priority
+      - schema:
+          type: string
+        name: order2
+        in: path
+        description: asc or desc
+components:
+  schemas:
+    User:
+      title: Job
+      type: object
+      examples:
+        - timestamp: '3/21/2016 12:54:49'
+          employer: ''
+          location: 'Raleigh, NC'
+          jobTitle: Software Developer
+          yearsAtEmployer: ''
+          yearsOfExperience: '18'
+          salary: '122000'
+          signingBonus: ''
+          annualBonus: ''
+          annualStockBonus: ''
+          gender: Male
+          additionalComments: ''
+      description: Job data
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        employer:
+          type: string
+        location:
+          type: string
+        jobTitle:
+          type: string
+        yearsAtEmployer:
+          type: string
+        yearsOfExperience:
+          type: string
+        salary:
+          type: string
+        signingBonus:
+          type: string
+        annualBonus:
+          type: string
+        annualStockBonus:
+          type: string
+        gender:
+          type: string
+        additionalComments:
+          type: string
+          description: 'If there is additional comments, add in this field.'
+      required:
+        - employer
+        - location
+        - jobTitle
+        - salary
+        - gender
